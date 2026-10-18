@@ -1,0 +1,12 @@
+{
+  "name": "marco-bartoli-fit",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.js",
+    "test": "node --test",
+    "check": "node --check script.js && node --check _worker.js",
+    "dev": "node scripts/dev.js"
+  }
+}

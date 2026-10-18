@@ -1,0 +1,8 @@
+{
+  "name": "marco-bartoli-fit",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2026-10-17",
+  "kv_namespaces": [
+    { "binding": "CONTACT_LIMITS", "id": "ccf6ce27792346f9a4a90f422a540fd0" }
+  ]
+}
