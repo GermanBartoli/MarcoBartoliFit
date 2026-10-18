@@ -2,7 +2,7 @@
 
 Landing de coaching **100 % online**, con asesorías de **tres meses** y entrenamiento basado en ciencia. Identidad en negro, rojo oscuro y blanco, fotografías reales y una experiencia adaptable a celulares.
 
-[Visitar el sitio](https://marco-bartoli-fit.pages.dev/) · [Instagram](https://www.instagram.com/marcobartoli.fit/) · [YouTube](https://www.youtube.com/@MarcoBartoliFit) · [WhatsApp](https://wa.me/5493516776352)
+[Visitar el sitio](https://marcobartolifit.pages.dev/) · [Instagram](https://www.instagram.com/marcobartolifit/) · [YouTube](https://www.youtube.com/@MarcoBartoliFit) · [TikTok](https://www.tiktok.com/@marcobartolifit) · [WhatsApp](https://wa.me/5493516776352)
 
 ![Portada de la landing](docs/portada-desktop.png)
 
@@ -15,11 +15,13 @@ Landing de coaching **100 % online**, con asesorías de **tres meses** y entrena
 - Presentación de Marco, cordobés de Argentina, coach y personal trainer.
 - Método de trabajo, rutina estructurada y propuesta de tres meses exclusivamente online.
 - Fotografías de entrenamiento y evolución personal, sin testimonios ni resultados inventados.
-- Video «GYM Chest Day - Hermanos Bartoli - 4K», integrado desde su canal real.
+- Video «CAMBIÉ DE PREPARADOR | Road to UFA #1 ft. Benjamorano» y carrusel con los 24 Shorts públicos del canal, reproducibles en la página.
 - Galería con acceso a Instagram, TikTok y Linktree.
 - Reproductor de Spotify con la playlist **GYM LIFESTYLE**.
 - Formulario inmediatamente debajo de Spotify, inspirado en el flujo de Cupido.
 - WhatsApp flotante, preguntas frecuentes y frases motivadoras.
+
+![Carrusel de Shorts](docs/carrusel-shorts.png)
 
 ## Diseño y accesibilidad
 
@@ -35,7 +37,8 @@ Las animaciones respetan `prefers-reduced-motion`. Incluye navegación por tecla
 
 - `media/originales/`: las ocho imágenes entregadas por el usuario, conservadas sin cambios, incluidos dos HEIC.
 - `assets/fotos/`: seis versiones WebP optimizadas. Los recortes quitan márgenes negros de las capturas sin alterar el físico.
-- `assets/redes/`: tres fotografías públicas y doce fotogramas de Shorts. Orígenes y limitaciones en [FUENTES.md](assets/redes/FUENTES.md).
+- `assets/redes/`: tres fotografías públicas y doce fotogramas recopilados previamente. Orígenes y limitaciones en [FUENTES.md](assets/redes/FUENTES.md).
+- `assets/shorts/`: 24 miniaturas WebP y la lista verificada desde la pestaña pública de Shorts del canal el 18/10/2026.
 - Los originales no se copian al sitio desplegado. Las imágenes siguen perteneciendo a sus titulares; recopilarlas no concede una licencia de reutilización a terceros.
 
 ## Desarrollo local
@@ -57,13 +60,13 @@ El navegador llama a `POST /api/contact`. El Worker valida nombre, email, objeti
 
 El destinatario se configura exclusivamente mediante el secreto **CONTACT_RECIPIENT** en Cloudflare. No está en el HTML, JavaScript del navegador ni en este repositorio. `marco@gym.com` es un identificador visual solicitado para el formulario, no un buzón cuya recepción se haya configurado; por eso no se presenta como un enlace `mailto:`.
 
-El servicio de correo es FormSubmit, como en Cupido. Puede requerir activar el formulario desde el correo que recibe el destinatario. El sitio no confirma éxito si el proveedor rechaza el envío, devuelve una respuesta ambigua o solicita activación. Una respuesta exitosa del proveedor no prueba por sí sola la entrega en la bandeja de entrada.
+El servicio de correo es FormSubmit, como en Cupido. El titular del buzón confirmó el enlace de activación de FormSubmit el 18/10/2026. El sitio no confirma éxito si el proveedor rechaza el envío, devuelve una respuesta ambigua o solicita activación. Una respuesta exitosa del proveedor no prueba por sí sola la entrega en la bandeja de entrada.
 
 El formulario transmite los datos a Cloudflare y FormSubmit para responder la consulta. Spotify, YouTube y Google Fonts reciben las solicitudes necesarias para cargar su contenido. No hay analítica propia ni almacenamiento de consultas en una base de datos.
 
 ## Publicación
 
-- Plataforma: Cloudflare Pages, proyecto `marco-bartoli-fit`.
+- Plataforma: Cloudflare Pages, proyecto `marcobartolifit`.
 - Rama de producción: `release`.
 - Salida: `dist/`.
 - Configuración: `wrangler.jsonc` y secreto `CONTACT_RECIPIENT`.
@@ -73,10 +76,10 @@ El formulario transmite los datos a Cloudflare y FormSubmit para responder la co
 npm run check
 npm test
 npm run build
-npx wrangler pages deploy dist --project-name marco-bartoli-fit --branch release
+npx wrangler pages deploy dist --project-name marcobartolifit --branch release
 ```
 
-La publicación inicial utiliza carga directa porque Cloudflare informó un error en la instalación de su integración Git. **Un push a GitHub no despliega automáticamente** hasta reparar y configurar esa integración o un flujo CI. No se guardan credenciales de Cloudflare o GitHub en el proyecto.
+La publicación utiliza carga directa porque Cloudflare informó un error en la instalación de su integración Git. **Un push a GitHub no despliega automáticamente** hasta reparar y configurar esa integración o un flujo CI. No se guardan credenciales de Cloudflare o GitHub en el proyecto.
 
 ## Estructura
 
