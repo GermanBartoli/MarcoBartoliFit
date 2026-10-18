@@ -60,7 +60,7 @@ El navegador llama a `POST /api/contact`. El Worker valida nombre, email, objeti
 
 El destinatario se configura exclusivamente mediante el secreto **CONTACT_RECIPIENT** en Cloudflare. No está en el HTML, JavaScript del navegador ni en este repositorio. `marco@gym.com` es un identificador visual solicitado para el formulario, no un buzón cuya recepción se haya configurado; por eso no se presenta como un enlace `mailto:`.
 
-El servicio de correo es FormSubmit, como en Cupido. El titular del buzón confirmó el enlace de activación de FormSubmit el 18/10/2026. El sitio no confirma éxito si el proveedor rechaza el envío, devuelve una respuesta ambigua o solicita activación. Una respuesta exitosa del proveedor no prueba por sí sola la entrega en la bandeja de entrada.
+El servicio de correo es FormSubmit, como en Cupido. El titular del buzón indicó que confirmó el enlace de activación de FormSubmit el 18/10/2026. En una prueba posterior, el proveedor todavía respondió que el formulario requiere activación; también aplicó un límite temporal a los envíos desde Cloudflare. Hay que verificar que la página de confirmación haya indicado activación completada. El sitio no confirma éxito si el proveedor rechaza el envío, devuelve una respuesta ambigua o solicita activación. Una respuesta exitosa del proveedor no prueba por sí sola la entrega en la bandeja de entrada.
 
 El formulario transmite los datos a Cloudflare y FormSubmit para responder la consulta. Spotify, YouTube y Google Fonts reciben las solicitudes necesarias para cargar su contenido. No hay analítica propia ni almacenamiento de consultas en una base de datos.
 
