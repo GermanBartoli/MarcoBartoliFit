@@ -83,9 +83,29 @@ form.addEventListener('submit', async event => {
   button.disabled = true;
   status.textContent = 'Enviando tu consulta…';
   try {
-    const response = await fetch(form.action, { method: 'POST', body: new FormData(form), signal: AbortSignal.timeout(20000) });
+    const data = new FormData(form);
+    const payload = new URLSearchParams({
+      name: data.get('nombre'),
+      email: data.get('email'),
+      service: data.get('servicio'),
+      message: data.get('mensaje'),
+      _subject: 'Nuevo contacto desde Marco Bartoli Fit',
+      _template: 'table',
+      _honey: data.get('website'),
+    });
+    const response = await fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded', Accept: 'application/json' },
+      body: payload,
+      signal: AbortSignal.timeout(20000),
+    });
     const result = await response.json();
-    if (!response.ok || !result.ok) throw new Error(result.error || 'No pudimos enviar tu consulta. Probá por WhatsApp.');
+    if (!response.ok || (result.success !== true && result.success !== 'true')) {
+      const error = /activation/i.test(result.message || '')
+        ? 'El formulario todavía necesita activación. Escribime por WhatsApp mientras tanto.'
+        : 'No pudimos enviar tu consulta. Probá más tarde o escribime por WhatsApp.';
+      throw new Error(error);
+    }
     status.textContent = '¡Consulta enviada! Gracias por dar el primer paso. Te responderé a tu email.';
     form.reset();
   } catch (error) {

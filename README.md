@@ -52,25 +52,23 @@ npm run build
 npm run dev
 ```
 
-La vista local queda en `http://127.0.0.1:4173`. Su formulario devuelve un aviso de vista local y no envía correos. Para probar Pages Functions se puede usar `npx wrangler pages dev dist` con las variables locales correspondientes.
+La vista local queda en `http://127.0.0.1:4173`. El formulario usa FormSubmit también en esta vista y una prueba puede enviar un correo real.
 
 ## Formulario y privacidad
 
-El navegador llama a `POST /api/contact`. El Worker valida nombre, email, objetivo y mensaje; comprueba el origen, limita el cuerpo a 12 KB, usa un campo trampa y aplica un límite orientativo de dos envíos por minuto por IP anonimizada en KV. KV tiene consistencia eventual: este límite es una protección básica, no una cuota estricta bajo concurrencia.
+El navegador envía el formulario directamente al endpoint AJAX de FormSubmit mediante el identificador opaco recibido en el correo de activación. FormSubmit confirmó una entrega de prueba con ese identificador el 18/10/2026. El correo real de destino no figura en el HTML, JavaScript ni en las solicitudes del navegador. `marco@gym.com` es el contacto visual solicitado, no un buzón configurado.
 
-El destinatario se configura exclusivamente mediante el secreto **CONTACT_RECIPIENT** en Cloudflare. No está en el HTML, JavaScript del navegador ni en este repositorio. `marco@gym.com` es un identificador visual solicitado para el formulario, no un buzón cuya recepción se haya configurado; por eso no se presenta como un enlace `mailto:`.
+El endpoint anterior `/api/contact` permanece disponible como ruta heredada, pero la página ya no lo usa porque FormSubmit limitó con HTTP 429 los envíos originados desde Cloudflare. El Worker conserva sus validaciones y su secreto de destinatario para esa ruta. El formulario activo usa el campo trampa y las protecciones de FormSubmit. Una respuesta exitosa del proveedor no prueba por sí sola la entrega en la bandeja de entrada.
 
-El servicio de correo es FormSubmit, como en Cupido. El titular del buzón indicó que confirmó el enlace de activación de FormSubmit el 18/10/2026. En una prueba posterior, el proveedor todavía respondió que el formulario requiere activación; también aplicó un límite temporal a los envíos desde Cloudflare. Hay que verificar que la página de confirmación haya indicado activación completada. El sitio no confirma éxito si el proveedor rechaza el envío, devuelve una respuesta ambigua o solicita activación. Una respuesta exitosa del proveedor no prueba por sí sola la entrega en la bandeja de entrada.
-
-El formulario transmite los datos a Cloudflare y FormSubmit para responder la consulta. Spotify, YouTube y Google Fonts reciben las solicitudes necesarias para cargar su contenido. No hay analítica propia ni almacenamiento de consultas en una base de datos.
+El formulario transmite los datos directamente a FormSubmit para responder la consulta. Spotify, YouTube y Google Fonts reciben las solicitudes necesarias para cargar su contenido. No hay analítica propia ni almacenamiento de consultas en una base de datos.
 
 ## Publicación
 
 - Plataforma: Cloudflare Pages, proyecto `marcobartolifit`.
 - Rama de producción: `release`.
 - Salida: `dist/`.
-- Configuración: `wrangler.jsonc` y secreto `CONTACT_RECIPIENT`.
-- KV: binding `CONTACT_LIMITS`, separado del proyecto Cupido.
+- Configuración: `wrangler.jsonc` y secreto `CONTACT_RECIPIENT` para la ruta heredada.
+- KV: binding `CONTACT_LIMITS` para la ruta heredada, separado del proyecto Cupido.
 
 ```powershell
 npm run check
