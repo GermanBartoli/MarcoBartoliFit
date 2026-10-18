@@ -32,7 +32,7 @@ Imágenes enlazadas por la página pública del canal @MarcoBartoliFit, verifica
 
 ## Alcance
 
-- Linktree confirmó la cuenta de Instagram https://instagram.com/marcobartoli.fit.
+- El usuario confirmó la cuenta de Instagram https://www.instagram.com/marcobartolifit/.
 - Instagram no entregó imágenes de publicaciones en la respuesta pública consultada; TikTok devolvió una página sin galería accesible. No se usaron credenciales ni se eludieron restricciones.
 - Se descartaron el avatar pequeño de Linktree, una imagen de estatua, una foto infantil y miniaturas sin una imagen útil de entrenamiento.
 - No se modificaron los originales suministrados por el usuario.

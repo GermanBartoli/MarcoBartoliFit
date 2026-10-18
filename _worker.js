@@ -104,8 +104,9 @@ export async function onRequestPost({ request, env }) {
     _honey: "",
   });
 
+  let response;
   try {
-    const response = await fetch(
+    response = await fetch(
       "https://formsubmit.co/ajax/" + encodeURIComponent(env.CONTACT_RECIPIENT),
       {
         method: "POST",
@@ -119,32 +120,28 @@ export async function onRequestPost({ request, env }) {
         signal: AbortSignal.timeout(15000),
       },
     );
-    const result = await response.json();
-    if (result.success === false || result.success === "false") {
-      if (/activation/i.test(String(result.message || ""))) {
-        return json(
-          {
-            ok: false,
-            error:
-              "El formulario aún no está activado. Escribime por WhatsApp mientras tanto.",
-          },
-          503,
-        );
-      }
-      throw new Error("Rechazado por el servicio de correo");
-    }
-    if (result.success !== true && result.success !== "true") throw new Error("Respuesta no confirmada");
-    if (!response.ok) throw new Error("Error del servicio de correo");
-    return json({ ok: true });
   } catch {
     return json(
       {
         ok: false,
-        error: "No pudimos enviar el mensaje ahora. Intentá más tarde.",
+        error: "No pudimos conectar con el servicio de correo. Intentá más tarde o escribime por WhatsApp.",
       },
       502,
     );
   }
+  let result;
+  try {
+    result = await response.json();
+  } catch {
+    return json({ ok: false, error: `El servicio de correo respondió con HTTP ${response.status}. Intentá más tarde o escribime por WhatsApp.` }, 502);
+  }
+  if (/activation/i.test(String(result.message || "")))
+    return json({ ok: false, error: "Falta activar el formulario: se envió un enlace de confirmación al correo de Marco. Mientras tanto, escribime por WhatsApp." }, 503);
+  if (response.status === 429)
+    return json({ ok: false, error: "El servicio de correo está limitando los envíos. Esperá unos minutos y reintentá o escribime por WhatsApp." }, 503);
+  if (!response.ok || (result.success !== true && result.success !== "true"))
+    return json({ ok: false, error: "El servicio de correo rechazó el envío. Intentá más tarde o escribime por WhatsApp." }, 502);
+  return json({ ok: true });
 }
 
 export default {

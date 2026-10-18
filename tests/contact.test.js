@@ -111,7 +111,15 @@ test("avisa cuando el buzón todavía requiere activación", async (context) => 
     env: environment(),
   });
   assert.equal(response.status, 503);
-  assert.match((await response.json()).error, /no está activado/);
+  assert.match((await response.json()).error, /Falta activar/);
+});
+
+test("avisa cuando el proveedor limita temporalmente los envíos", async context => {
+  context.mock.method(globalThis, "fetch", async () =>
+    new Response(JSON.stringify({ success: "false", message: "Rate limit exceeded." }), { status: 429 }));
+  const response = await onRequestPost({ request: request(valid), env: environment() });
+  assert.equal(response.status, 503);
+  assert.match((await response.json()).error, /limitando los envíos/);
 });
 
 test("no confirma el envío si el proveedor lo rechaza", async (context) => {
