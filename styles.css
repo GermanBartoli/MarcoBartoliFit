@@ -10,5 +10,5 @@
 
 .ticker-track,.ticker-group{display:contents}.ticker-copy{display:none}
 @keyframes ticker-right{from{transform:translateX(-50%)}to{transform:translateX(0)}}
-@media(max-width:700px){.ticker{padding:13px 0;gap:0}.ticker-track{display:flex;width:max-content;flex-shrink:0;animation:ticker-right 30s linear infinite}.ticker-group{display:flex;flex-shrink:0;align-items:center;gap:25px;padding-right:25px}.ticker-copy{display:flex}}
-@media(max-width:700px) and (prefers-reduced-motion:reduce){.ticker{white-space:normal;padding:13px 20px}.ticker-group{flex-wrap:wrap;justify-content:center;gap:12px 25px;padding:0}.ticker-track{width:100%;flex-shrink:1;transform:none}.ticker-copy{display:none}}
+@media(max-width:1200px){.ticker{justify-content:flex-start;padding:13px 0;gap:0}.ticker-track{display:flex;width:max-content;flex-shrink:0;animation:ticker-right 30s linear infinite}.ticker-group{display:flex;flex-shrink:0;align-items:center;gap:25px;padding-right:25px}.ticker-copy{display:flex}}
+@media(max-width:1200px) and (prefers-reduced-motion:reduce){.ticker{white-space:normal;padding:13px 20px}.ticker-group{flex-wrap:wrap;justify-content:center;gap:12px 25px;padding:0}.ticker-track{width:100%;flex-shrink:1;transform:none}.ticker-copy{display:none}}
