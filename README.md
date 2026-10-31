@@ -1,5 +1,10 @@
 # Marco Bartoli · Entrená con propósito
 
+## Enlaces
+
+- [Sitio publicado en Cloudflare Pages](https://marcobartolifit.pages.dev/)
+- [Repositorio en GitHub](https://github.com/GermanBartoli/MarcoBartoliFit)
+
 Landing de coaching **100 % online**, con asesorías de **tres meses** y entrenamiento basado en ciencia. Identidad en negro, rojo oscuro y blanco, fotografías reales y una experiencia adaptable a celulares.
 
 [Visitar el sitio](https://marcobartolifit.pages.dev/) · [Instagram](https://www.instagram.com/marcobartolifit/) · [YouTube](https://www.youtube.com/@MarcoBartoliFit) · [TikTok](https://www.tiktok.com/@marcobartolifit) · [WhatsApp](https://wa.me/5493516776352)
@@ -74,10 +79,10 @@ El formulario transmite los datos directamente a FormSubmit para responder la co
 npm run check
 npm test
 npm run build
-npx wrangler pages deploy dist --project-name marcobartolifit --branch release
+npx wrangler pages deploy dist --project-name marcobartolifit --branch main
 ```
 
-La publicación utiliza carga directa porque Cloudflare informó un error en la instalación de su integración Git. **Un push a GitHub no despliega automáticamente** hasta reparar y configurar esa integración o un flujo CI. No se guardan credenciales de Cloudflare o GitHub en el proyecto.
+Cada push a `main` ejecuta `.github/workflows/cloudflare.yml`: verifica la sintaxis, ejecuta las pruebas, compila y publica en el proyecto existente `marcobartolifit`, cuya rama de producción en Cloudflare es `main`. El token se guarda en el secreto de GitHub Actions `CLOUDFLARE_API_TOKEN`. También admite ejecución manual.
 
 ## Estructura
 

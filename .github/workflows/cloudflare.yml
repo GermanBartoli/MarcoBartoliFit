@@ -1,0 +1,28 @@
+name: Validar y publicar sitio
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: cloudflare-produccion
+  cancel-in-progress: false
+jobs:
+  publicar:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Verificar y compilar
+        run: |
+          npm run check
+          npm test
+          npm run build
+      - name: Publicar en Cloudflare Pages
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: 3523de741e46113fc18e3e1dd118f1d2
+        run: npx --yes wrangler@4.151.3 pages deploy dist --project-name marcobartolifit --branch main --commit-hash "${{ github.sha }}"
