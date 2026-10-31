@@ -1,28 +1,70 @@
-name: Validar y publicar sitio
+name: Validar y publicar en Cloudflare y GitHub Pages
 on:
   push:
     branches: [main]
+  pull_request:
   workflow_dispatch:
 permissions:
   contents: read
 concurrency:
-  group: cloudflare-produccion
+  group: publicacion-${{ github.ref }}
   cancel-in-progress: false
 jobs:
-  publicar:
+  validar:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
       - name: Verificar y compilar
         run: |
           npm run check
           npm test
           npm run build
+      - name: Preparar GitHub Pages
+        run: node scripts/preparar-github-pages.mjs MarcoBartoliFit https://marcobartolifit.pages.dev
+      - name: Guardar compilación de Cloudflare
+        uses: actions/upload-artifact@v4
+        with:
+          name: cloudflare
+          path: dist
+          include-hidden-files: true
+      - name: Guardar compilación de GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist-github
+  cloudflare:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: validar
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+      - uses: actions/download-artifact@v4
+        with:
+          name: cloudflare
+          path: dist
       - name: Publicar en Cloudflare Pages
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
-          CLOUDFLARE_ACCOUNT_ID: 3523de741e46113fc18e3e1dd118f1d2
-        run: npx --yes wrangler@4.151.3 pages deploy dist --project-name marcobartolifit --branch main --commit-hash "${{ github.sha }}"
+        uses: cloudflare/wrangler-action@v4
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=marcobartolifit --branch=main --commit-hash=${{ github.sha }}
+  github-pages:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: validar
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Publicar en GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
