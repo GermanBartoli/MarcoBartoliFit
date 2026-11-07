@@ -37,7 +37,7 @@ fetch('assets/shorts/shorts.json')
       button.type = 'button';
       button.setAttribute('aria-label', `Reproducir Short: ${title}`);
       const image = document.createElement('img');
-      image.src = `assets/shorts/${id}.webp`;
+      image.src = `assets/shorts/${id}.jpg`;
       image.alt = '';
       image.loading = 'lazy';
       const icon = document.createElement('span');

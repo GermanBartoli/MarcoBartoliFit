@@ -41,9 +41,9 @@ Las animaciones respetan `prefers-reduced-motion`. Incluye navegación por tecla
 ![Evolución personal de Marco](assets/fotos/img_6709.webp)
 
 - `media/originales/`: las ocho imágenes entregadas por el usuario, conservadas sin cambios, incluidos dos HEIC.
-- `assets/fotos/`: seis versiones WebP optimizadas. Los recortes quitan márgenes negros de las capturas sin alterar el físico.
+- `assets/fotos/`: seis versiones WebP sin pérdida, verificadas píxel a píxel contra los originales. No se reduce la resolución; los recortes existentes solo quitan márgenes negros de las capturas, sin alterar el físico.
 - `assets/redes/`: tres fotografías públicas y doce fotogramas recopilados previamente. Orígenes y limitaciones en [FUENTES.md](assets/redes/FUENTES.md).
-- `assets/shorts/`: 24 miniaturas WebP y la lista verificada desde la pestaña pública de Shorts del canal el 18/10/2026.
+- `assets/shorts/`: 24 miniaturas JPEG originales de YouTube, sin recompresión, y la lista verificada desde la pestaña pública de Shorts del canal el 18/10/2026.
 - Los originales no se copian al sitio desplegado. Las imágenes siguen perteneciendo a sus titulares; recopilarlas no concede una licencia de reutilización a terceros.
 
 ## Desarrollo local
