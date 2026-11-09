@@ -1,6 +1,6 @@
 {
   "name": "marcobartolifit",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "private": true,
   "type": "module",
   "scripts": {
@@ -9,5 +9,5 @@
     "check": "node --check script.js && node --check _worker.js",
     "dev": "node scripts/dev.js"
   },
-  "packageManager": "pnpm@11.25.0"
+  "packageManager": "pnpm@12.18.0"
 }
