@@ -6,3 +6,4 @@
 *.webp binary
 *.HEIC binary
 *.woff2 binary
+*.yaml text eol=crlf

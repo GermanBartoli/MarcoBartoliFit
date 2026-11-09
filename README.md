@@ -68,10 +68,10 @@ Las animaciones respetan `prefers-reduced-motion`. Incluye navegación por tecla
 Se necesita Node.js 22 o posterior. No requiere dependencias de ejecución ni instalación de paquetes para construir.
 
 ```powershell
-npm run check
-npm test
-npm run build
-npm run dev
+pnpm run check
+pnpm test
+pnpm run build
+pnpm run dev
 ```
 
 La vista local queda en `http://127.0.0.1:4173`. El formulario usa FormSubmit también en esta vista y una prueba puede enviar un correo real.
@@ -93,10 +93,10 @@ El formulario transmite los datos directamente a FormSubmit para responder la co
 - KV: binding `CONTACT_LIMITS` para la ruta heredada, separado del proyecto Cupido.
 
 ```powershell
-npm run check
-npm test
-npm run build
-npx wrangler pages deploy dist --project-name marcobartolifit --branch main
+pnpm run check
+pnpm test
+pnpm run build
+pnpm dlx wrangler pages deploy dist --project-name marcobartolifit --branch main
 ```
 
 Cada push a `main` ejecuta `.github/workflows/cloudflare.yml`: verifica la sintaxis, ejecuta las pruebas, compila y publica en el proyecto existente `marcobartolifit`, cuya rama de producción en Cloudflare es `main`. El token se guarda en el secreto de GitHub Actions `CLOUDFLARE_API_TOKEN`. También admite ejecución manual.
