@@ -5,7 +5,7 @@
 [![Repositorio](https://img.shields.io/badge/GitHub-GermanBartoli-181717?logo=github)](https://github.com/GermanBartoli/MarcoBartoliFit)
 [![Verificaciones](https://github.com/GermanBartoli/MarcoBartoliFit/actions/workflows/cloudflare.yml/badge.svg)](https://github.com/GermanBartoli/MarcoBartoliFit/actions/workflows/cloudflare.yml)
 
-[Abrir sitio](https://marcobartolifit.pages.dev/) · [Empezar](#primeros-pasos) · [Mapa del repositorio](#mapa-del-repositorio) · [Autoría](#autoría-de-esta-documentación)
+[Abrir en Cloudflare](https://marcobartolifit.pages.dev/) · [Abrir en GitHub Pages](https://germanbartoli.github.io/MarcoBartoliFit/) · [Empezar](#primeros-pasos) · [Mapa del repositorio](#mapa-del-repositorio) · [Autoría](#autoría-de-esta-documentación)
 
 ![Vista del proyecto: Marco Bartoli · Entrená con propósito](docs/images/vista-actual.jpg)
 
