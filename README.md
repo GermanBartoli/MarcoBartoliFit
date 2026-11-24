@@ -90,7 +90,7 @@ El formulario transmite los datos directamente a FormSubmit para responder la co
 - Rama de producción: `main`.
 - Salida: `dist/`.
 - Configuración: `wrangler.jsonc` y secreto `CONTACT_RECIPIENT` para la ruta heredada.
-- KV: binding `CONTACT_LIMITS` para la ruta heredada, separado del proyecto Cupido.
+- D1: binding `CUPO_CONTACTO` para la ruta heredada, separado del proyecto Cupido.
 
 ```powershell
 pnpm run check

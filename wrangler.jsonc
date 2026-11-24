@@ -2,7 +2,5 @@
   "name": "marcobartolifit",
   "pages_build_output_dir": "dist",
   "compatibility_date": "2026-10-17",
-  "kv_namespaces": [
-    { "binding": "CONTACT_LIMITS", "id": "ccf6ce27792346f9a4a90f422a540fd0" }
-  ]
+  "d1_databases": [{ "binding": "CUPO_CONTACTO", "database_name": "marcofit-contacto", "database_id": "0e55cf17-8e67-4b7c-832f-daaa34db3d3e" }]
 }
